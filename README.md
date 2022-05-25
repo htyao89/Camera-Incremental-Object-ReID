@@ -16,12 +16,22 @@ Download the person datasets Market-1501, and MSMT17 from (https://virutalbuy-pu
 Then unzip them under the directory like
 ```
 examples/data/market1501/Market-1501-v15.09.15
-exmpales/data/msmt17/MSMT17_V1
+exmpales/data/veri/VeRi
 ```
 
-## Training on supervised
+## Training
 
 ```
-CUDA_VISIBLE_DEVICES=0  python examples/main.py -b 128 -a resnet50 -d market1501 --momentum 0.1 --w 0.25 --num-instances 16 --logs-dir ./examples/market1501_supervised
-CUDA_VISIBLE_DEVICES=0  python examples/main.py -b 128 -a resnet50 -d msmt17 --momentum 0.1 --w 0.5 --num-instances 16 --logs-dir ./examples/msmt17_supervised
+## EWC
+python -u ./examples/main_ewc_market.py -b 128 --height 256 --width 128 --icm True --kd True --end-cm True -a resnet50 -d market1501 --wu 0.25 --momentum 0.1 --num-instances 16 --ci 0 --logs-dir ./result/market_ewc_icm_kd_ecm_ci0  --iters 100
+python -u ./examples/main_ewc_market.py -b 128 --height 256 --width 128  -a resnet50 -d market1501 --w 0.25 --momentum 0.1 --num-instances 16 --wu 0.25 --ci 0 --logs-dir ./result/market_ewc_ci0  --iters 100
+
+## MAS
+python -u ./examples/main_mas_market.py -b 128 --height 256 --width 128 --icm True --kd True --end-cm True -a resnet50 -d market1501 --wu 0.25 --momentum 0.1 --num-instances 16 --ci 0 --logs-dir ./result/market_mas_icm_kd_ecm_ci0  --iters 100
+python -u ./examples/main_mas_market.py -b 128 --height 256 --width 128  -a resnet50 -d market1501 --w 0.25 --momentum 0.1 --num-instances 16 --wu 0.25 --ci 0 --logs-dir ./result/market_mas_ci0  --iters 100
+
+
+## SI
+python -u ./examples/main_si_market.py -b 128 --height 256 --width 128 --icm True --kd True --end-cm True -a resnet50 -d market1501 --wu 0.25 --momentum 0.1 --num-instances 16 --ci 0 --logs-dir ./result/market_si_icm_kd_ecm_ci0  --iters 100
+python -u ./examples/main_si_market.py -b 128 --height 256 --width 128  -a resnet50 -d market1501 --w 0.25 --momentum 0.1 --num-instances 16 --wu 0.25 --ci 0 --logs-dir ./result/market_si_ci0  --iters 100
 ```
