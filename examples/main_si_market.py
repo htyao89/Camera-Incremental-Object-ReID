@@ -18,19 +18,19 @@ from torch.backends import cudnn
 from torch.utils.data import DataLoader
 import torch.nn.functional as F
 
-from dualclustercontrast import datasets
-from dualclustercontrast import models
-from dualclustercontrast.trainers import DualClusterContrastTrainer_, IncreamentalDualClusterContrastTrainer
-from dualclustercontrast.evaluators import Evaluator, extract_features, evaluate_loss, load_random_state, save_random_state
-from dualclustercontrast.utils.data import IterLoader
-from dualclustercontrast.utils.data import transforms as T
-from dualclustercontrast.utils.data.sampler import RandomMultipleGallerySampler
-from dualclustercontrast.utils.data.preprocessor import Preprocessor
-from dualclustercontrast.utils.logging import Logger
-from dualclustercontrast.utils.serialization import load_checkpoint, save_checkpoint, copy_state_dict
-from dualclustercontrast.utils.faiss_rerank import compute_jaccard_distance
-from dualclustercontrast.dataloader import *
-from dualclustercontrast.function import *
+from cior import datasets
+from cior import models
+#from cior.trainers import ciorTrainer_, IncreamentalciorTrainer
+from cior.evaluators import Evaluator, extract_features, evaluate_loss, load_random_state, save_random_state
+from cior.utils.data import IterLoader
+from cior.utils.data import transforms as T
+from cior.utils.data.sampler import RandomMultipleGallerySampler
+from cior.utils.data.preprocessor import Preprocessor
+from cior.utils.logging import Logger
+from cior.utils.serialization import load_checkpoint, save_checkpoint, copy_state_dict
+from cior.utils.faiss_rerank import compute_jaccard_distance
+from cior.dataloader import *
+from cior.function import CurrLoss, PastLoss, EWCLoss
 
 from debug import *
 
@@ -200,7 +200,7 @@ def main_worker(args):
     cam_num = collections.defaultdict(list)
     cam_datasets = collections.defaultdict(list)
     cam_prec = collections.defaultdict(list)
-    # trainer = DualClusterContrastTrainer_()
+    # trainer = ciorTrainer_()
     if args.debug == True:
         exit(0)
 
