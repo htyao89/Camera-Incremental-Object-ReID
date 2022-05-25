@@ -1,0 +1,24 @@
+==========
+Args:Namespace(arch='resnet50', batch_size=128, ci=0, data_dir='/home/officer/Desktop/CIOR/examples/data', dataset='market1501', debug=False, dropout=0, end_cm=False, epochs=10, eval_step=10, features=0, height=256, icm=False, iters=100, kd=False, logs_dir='./result/market_ewc_ci0', lr=0.00035, momentum=0.1, num_instances=16, pooling_type='gem', print_freq=50, regular_weight=5000, seed=1, step_size=50, temp=0.05, testbatchsize=False, use_hard=False, w=0.25, weight_decay=0.0005, width=128, workers=10, wu=0.25)
+==========
+
+==> Load unlabeled dataset
+the dataset root is /home/officer/Desktop/CIOR/examples/data/market1501
+=> Market1501 loaded
+Dataset statistics:
+  ----------------------------------------
+  subset   | # ids | # images | # cameras
+  ----------------------------------------
+  train    |   751 |    12936 |         6
+  query    |   750 |     3368 |         6
+  gallery  |   751 |    15913 |         6
+  ----------------------------------------
+Extract Features: [50/151]	Time 0.367 (0.425)	Data 0.000 (0.039)	
+Extract Features: [100/151]	Time 0.373 (0.398)	Data 0.000 (0.019)	
+Extract Features: [150/151]	Time 0.352 (0.387)	Data 0.000 (0.013)	
+Mean AP: 2.4%
+==> Create pseudo labels for unlabeled data
+0->49:5.869937372207642
+0->99:5.519808447360992
+1->49:4.684449410438537
+1->99:4.257910051345825
