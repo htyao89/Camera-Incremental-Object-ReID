@@ -20,7 +20,7 @@ import torch.nn.functional as F
 
 from cior import datasets
 from cior import models
-from cior.trainers import DualClusterContrastTrainer_, IncreamentalDualClusterContrastTrainer
+#from cior.trainers import DualClusterContrastTrainer_, IncreamentalDualClusterContrastTrainer
 from cior.evaluators import Evaluator, extract_features, evaluate_loss, load_random_state, save_random_state
 from cior.utils.data import IterLoader
 from cior.utils.data import transforms as T
