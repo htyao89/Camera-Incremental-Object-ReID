@@ -33,9 +33,12 @@ class ResNet(nn.Module):
         resnet = ResNet.__factory[depth](pretrained=pretrained)
         resnet.layer4[0].conv2.stride = (1, 1)
         resnet.layer4[0].downsample[0].stride = (1, 1)
-        self.base = nn.Sequential(
-            resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool,
-            resnet.layer1, resnet.layer2, resnet.layer3, resnet.layer4)
+
+        self.base_1 = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool,resnet.layer1)
+        self.base_2 = nn.Sequential(resnet.layer2)
+        self.base_3 = nn.Sequential(resnet.layer3)
+        self.base_4 = nn.Sequential(resnet.layer4)
+
 
         # print(self.base[7])
         self.gap = build_pooling_layer(pooling_type)
@@ -71,12 +74,26 @@ class ResNet(nn.Module):
         if not pretrained:
             self.reset_params()
 
+
     def forward(self, x):
         bs = x.size(0)
-        x = self.base(x)
+        x_1 = self.base_1(x)
+        x_2 = self.base_2(x_1)
+        x_3 = self.base_3(x_2)
+        x = self.base_4(x_3)
 
         x = self.gap(x)
         x = x.view(x.size(0), -1)
+
+        x_1 = self.gap(x_1)
+        x_1 = x.view(x_1.size(0), -1)
+
+
+        x_2 = self.gap(x_2)
+        x_2 = x.view(x_2.size(0), -1)
+
+        x_3 = self.gap(x_3)
+        x_3 = x.view(x_3.size(0), -1)
 
         if self.cut_at_pooling:
             return x
@@ -88,7 +105,7 @@ class ResNet(nn.Module):
 
         if (self.training is False):
             bn_x = F.normalize(bn_x)
-            return bn_x
+            return bn_x, x_1, x_2, x_3
 
         if self.norm:
             bn_x = F.normalize(bn_x)
@@ -101,7 +118,7 @@ class ResNet(nn.Module):
         if self.num_classes > 0:
             prob = self.classifier(bn_x)
         else:
-            return bn_x
+            return bn_x, x_1, x_2, x_3
 
         return prob
 
