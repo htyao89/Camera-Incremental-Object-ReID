@@ -498,7 +498,7 @@ if __name__ == '__main__':
     # path
     working_dir = osp.dirname(osp.abspath(__file__))
     parser.add_argument('--data-dir', type=str, metavar='PATH',
-                            default=osp.join('/data/ljf/', 'reid'))
+                            default=osp.join(working_dir, 'examples/data'))
     parser.add_argument('--logs-dir', type=str, metavar='PATH',
                         default=osp.join(working_dir, 'logs_0914_adapt'))
     parser.add_argument('--pooling-type', type=str, default='gem')
