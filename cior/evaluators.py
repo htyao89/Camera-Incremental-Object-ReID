@@ -17,12 +17,12 @@ from .function import *
 
 def extract_cnn_feature(model, inputs):
     inputs1 = to_torch(inputs).cuda()
-    outputs1 = model(inputs1)
+    outputs1 = model(inputs1)[0]
     outputs1 = outputs1.data.cpu()
 
     inputs2 = inputs.index_select(3, torch.arange(inputs.size(3) - 1, -1, -1))
     inputs2 = to_torch(inputs2).cuda()
-    outputs2 = model(inputs2)
+    outputs2 = model(inputs2)[0]
     outputs2 = outputs2.data.cpu()
 
     ff = outputs1+outputs2
